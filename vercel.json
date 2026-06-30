@@ -1,0 +1,14 @@
+{
+  "builds": [
+    {
+      "src": "whatsapp/main.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "whatsapp/main.py"
+    }
+  ]
+}
