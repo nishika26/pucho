@@ -10,6 +10,9 @@ typing a calm question get materially different answers to the same query.
 
 > 🎥 **Demo video:** https://docs.google.com/videos/d/1qBSEjKyc637JDd3Y7aTNZ6yC6qWks1d492jAzZczwxE/edit?usp=sharing
 
+> A one-week simulation has already been run for the personas above — see the
+[simulation transcript](https://github.com/nishika26/pucho/blob/main/simulation_transcript.txt)
+for the full output.
 ---
 
 ## 1. The problem
