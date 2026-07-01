@@ -58,13 +58,12 @@ the review dashboard, closing the human-in-the-loop knowledge loop.
 
 ## 2. How it works (architecture)
 
-Pucho is built as a **LangGraph workflow, not a multi-agent system** — a
+Pucho is built as a **LangGraph workflow** — a
 deliberate choice. The task is grounded Q&A in regulated domains, which rewards
 **predictability over autonomy**, so we use a deterministic graph with LLM calls
-at specific nodes rather than agents that dynamically direct themselves. Even the
+at specific nodes that dynamically direct themselves. Even the
 STT/TTS "tools" are **called deterministically** — the graph runs them on an `if`
-gated on the message's modality, they are never *selected* by an LLM — so no node
-in the graph is an autonomous agent.
+gated on the message's modality, they are never *selected* by an LLM.
 
 ```mermaid
 flowchart TD
@@ -116,7 +115,7 @@ flowchart TD
   voice note *in its original language* (no translation). It runs only when
   `modality == "voice"` — the graph decides this with a plain `if`; the LLM never
   chooses to call it. STT is wrapped as a LangChain tool for reuse, but here it is
-  a deterministic function call, not an agent action.
+  a deterministic function call.
 - **`onboard`** — on first contact, sends one warm, plain-language welcome
   (spoken aloud via TTS for voice users), captures the user's name, and invites
   their question. Literacy-friendly by design.
@@ -133,12 +132,7 @@ flowchart TD
   it for expert review (Stream 2 below), and extracts durable facts into
   long-term memory.
 
-**Honest framing.** No node here is an autonomous agent. An *agent* is an LLM that
-decides, in a loop, which tools to call — Pucho has no such loop. The STT/TTS
-"tools" are invoked by the graph on a modality `if` (not model-selected), routing
-is a single structured-output classification (not a tool loop), and the domain
-handlers use no tools at all (`create_agent(tools=[])`) — they retrieve once and
-generate. So this is **classifier-routed static RAG**, not agentic RAG: the
+This is **classifier-routed static RAG**: the
 control flow is ours, not the model's. Short-term conversational memory is handled
 by LangGraph's `AsyncPostgresSaver` checkpointer (append-only history per user
 thread); long-term per-user memory lives in a `user_memories` table.
@@ -166,13 +160,6 @@ week**, so personalisation deepens as the bot learns the user.
 ---
 
 ## 4. Language handling
-
-Pucho preserves the user's language end-to-end **without a translate-to-English-
-and-back round trip**. Voice is transcribed in its original language (Sarvam
-STT, no translation); text passes through as-is. Because the LLM is natively
-multilingual, it reads the question in Hindi/Marathi/Hinglish/English directly
-and a prompt instruction keeps the **reply in that same language**; voice replies
-are spoken back in the detected language via Sarvam TTS.
 
 The one weak point was **retrieval**: our corpus is English, so embedding a Hindi
 query against English chunks gave weaker matches for exactly the non-English users
