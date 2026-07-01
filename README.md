@@ -33,12 +33,11 @@ Pucho targets the access layer: meet users where they already are (WhatsApp),
 in the medium they can use (**voice**), in their **own language**, with answers
 pitched at their **literacy level** and pointed at a **concrete next step**.
 
-**Grounding.** Pucho only answers from a curated knowledge base built from public
+**Grounding - ** Pucho only answers from a curated knowledge base built from public
 Indian sources — e.g. disability rights (RPwD Act), the UDID / disability
 certificate process, the Niramaya health-insurance scheme, RTE / school-admission
 rules, minimum-wage protections, and education scholarships. It never invents
-statutes, schemes, dosages, or eligibility. _(See `rag_corpus/`; teams should
-attach exact source citations here.)_
+statutes, schemes, dosages, or eligibility. _(See `rag_corpus/`)_
 
 ### Personas (5)
 
