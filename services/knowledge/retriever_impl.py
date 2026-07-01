@@ -37,7 +37,11 @@ class PgVectorRetriever:
             # Local import — keeps this module importable without OPENAI_API_KEY.
             from langchain_openai import OpenAIEmbeddings
 
-            self._embeddings = OpenAIEmbeddings(model=EMBED_MODEL)
+            from config.settings import settings
+
+            self._embeddings = OpenAIEmbeddings(
+                model=EMBED_MODEL, api_key=settings.OPENAI_API_KEY
+            )
         return self._embeddings
 
     async def _embed_query(self, query: str) -> list[float]:

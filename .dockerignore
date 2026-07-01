@@ -1,0 +1,31 @@
+# Virtualenv + Python caches (rebuilt inside the image)
+.venv/
+__pycache__/
+*.py[oc]
+*.egg-info/
+build/
+dist/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# Secrets — injected at runtime via env_file, never baked into the image
+.env
+.env.*
+!.env.example
+
+# Local tunnel binary (downloaded, platform-specific)
+cloudflared
+cloudflared.tgz
+
+# Git + editor + OS cruft
+.git/
+.gitignore
+.vscode/
+.idea/
+.DS_Store
+
+# Vercel config (this image is the non-Vercel deploy path)
+vercel.json
+
+# NOTE: rag_corpus/*.md is intentionally NOT ignored — the seed script needs it.

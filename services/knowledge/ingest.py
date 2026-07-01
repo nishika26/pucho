@@ -54,7 +54,9 @@ def _embeddings():
     # Lazy import — keeps this module importable without OPENAI_API_KEY.
     from langchain_openai import OpenAIEmbeddings
 
-    return OpenAIEmbeddings(model=EMBED_MODEL)
+    from config.settings import settings
+
+    return OpenAIEmbeddings(model=EMBED_MODEL, api_key=settings.OPENAI_API_KEY)
 
 
 async def _embed_batch(texts: list[str]) -> list[list[float]]:
@@ -78,15 +80,21 @@ async def ingest_qa_review(review_id: UUID, expert_id: UUID) -> UUID | None:
         return review.documents_chunk_id
 
     domain: MemoryDomainLiteral = review.domain  # type: ignore[assignment]
-    parts = [review.bot_answer]
-    if review.expert_input:
-        parts.append("Expert enrichment:\n" + review.expert_input)
-    text = "\n\n".join(parts).strip()
-    if not text:
-        log.warning("qa_review %s has no content to ingest", review_id)
-        # Still mark it approved — there was nothing to write.
+
+    # Ingest ONLY when the expert actually contributed new content. If they
+    # accepted the bot's answer as-is (no expert_input), there is nothing new
+    # to add to the knowledge base — mark approved and write no documents.
+    expert_input = (review.expert_input or "").strip()
+    if not expert_input:
+        log.info(
+            "qa_review %s approved with no expert content; nothing ingested",
+            review_id,
+        )
         await crud_qa_review.mark_approved(review_id, expert_id, None)
         return None
+
+    # The new knowledge unit: the bot's answer enriched with the expert's note.
+    text = f"{review.bot_answer.strip()}\n\nExpert enrichment:\n{expert_input}".strip()
 
     chunks = _splitter().split_text(text)
     if not chunks:

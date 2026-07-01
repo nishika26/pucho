@@ -1,11 +1,9 @@
 """Alembic environment.
 
-Reads the Postgres DSN from environment variables (`POSTGRES_*`) so the same
-settings that drive the app also drive migrations. We deliberately do NOT
-import `config.settings.Settings` here — its `_enforce_non_default_secrets`
-validator would block `alembic upgrade head --sql` (offline mode) before the
-run. The DSN vars (POSTGRES_SERVER/PORT/USER/PASSWORD/DB) are the canonical
-source for both app and migrations.
+Resolves the DSN from `config.settings` (which loads `.env` and accepts either
+`DATABASE_URL` or the discrete `POSTGRES_*` parts), so migrations and the app
+always use the same database. Alembic runs a sync engine, so the psycopg (v3)
+driver is forced in `_dsn()`.
 
 Per the senior-engineer doc, Supabase's `auth`, `storage`, and `realtime`
 schemas are excluded so alembic won't try to manage tables owned by
@@ -19,7 +17,6 @@ Run from the project root:
 
 from __future__ import annotations
 
-import os
 import sys
 from logging.config import fileConfig
 from pathlib import Path
@@ -31,34 +28,38 @@ if str(_PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(_PROJECT_ROOT))
 
 from alembic import context
-from pydantic_core import MultiHostUrl
 from sqlalchemy import engine_from_config, pool
 from sqlmodel import SQLModel
 
-from models.message import MessageModel  # noqa: F401  (registers table)
-from models.memory import UserMemoryModel  # noqa: F401
-from models.user import UserModel  # noqa: F401
+# Importing the package registers ALL table models with SQLModel.metadata.
+# (Importing only a subset would make autogenerate emit DROPs for the rest.)
+import models  # noqa: F401
 
 config = context.config
 
 
 def _dsn() -> str:
-    """Build the SQLAlchemy DSN from POSTGRES_* env vars (matches config.settings)."""
-    server = os.environ["POSTGRES_SERVER"]
-    user = os.environ["POSTGRES_USER"]
-    password = os.environ.get("POSTGRES_PASSWORD", "")
-    port = int(os.environ.get("POSTGRES_PORT", "5432"))
-    db = os.environ.get("POSTGRES_DB", "postgres")
-    return str(
-        MultiHostUrl.build(
-            scheme="postgresql+psycopg",
-            username=user,
-            password=password,
-            host=server,
-            port=port,
-            path=db,
+    """Resolve the migration DSN from the SAME source as the app.
+
+    `config.settings` loads `.env` and resolves either `DATABASE_URL` or the
+    discrete `POSTGRES_*` parts, so migrations and runtime never drift. Alembic
+    runs a *sync* engine, so we force the psycopg (v3) driver.
+    """
+    from config.settings import settings
+
+    url = settings.database_url
+    if not url:
+        raise RuntimeError(
+            "No database configured. Set DATABASE_URL (or the POSTGRES_* vars) "
+            "in your .env before running migrations."
         )
-    )
+    if url.startswith("postgresql+asyncpg://"):
+        url = "postgresql+psycopg://" + url[len("postgresql+asyncpg://"):]
+    elif url.startswith("postgresql://"):
+        url = "postgresql+psycopg://" + url[len("postgresql://"):]
+    elif url.startswith("postgres://"):
+        url = "postgresql+psycopg://" + url[len("postgres://"):]
+    return url
 
 
 config.set_main_option("sqlalchemy.url", _dsn())

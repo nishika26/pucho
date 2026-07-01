@@ -23,26 +23,30 @@ this same `app`.
 
 from __future__ import annotations
 
-import os
+import asyncio
+import logging
 from contextlib import asynccontextmanager
 from typing import Annotated
 
-from fastapi import FastAPI, Header, HTTPException, Request
+from fastapi import FastAPI, Header, HTTPException, Request, Response
 from fastapi.responses import PlainTextResponse
 from twilio.request_validator import RequestValidator
 
-from api.routes.whatsapp.adapter import (
-    build_twiml_reply,
-    twilio_form_to_state_and_context,
-)
+from api.routes.whatsapp.adapter import twilio_form_to_state_and_context
 from config.db import close_checkpointer
-from services.agents import compile_router, make_thread_id, router_workflow
+from config.settings import settings
+from services.agent import compile_router, make_thread_id
+
+log = logging.getLogger(__name__)
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Compile the router (with PostgresSaver) at startup; close on shutdown."""
-    await compile_router()
+    # Store the compiled graph on app.state. Importing `router_workflow` by
+    # name would capture the None bound at import time and never see the
+    # post-compile reassignment, so we read it off app.state per request.
+    app.state.router_workflow = await compile_router()
     try:
         yield
     finally:
@@ -57,41 +61,72 @@ async def healthz() -> str:
     return "ok"
 
 
-@app.post("/whatsapp/webhook", response_class=PlainTextResponse)
+@app.post("/whatsapp/webhook")
 async def whatsapp_webhook(
     request: Request,
     x_twilio_signature: Annotated[str | None, Header(alias="X-Twilio-Signature")] = None,
-) -> str:
-    auth_token = os.environ.get("TWILIO_AUTH_TOKEN")
+) -> Response:
+    auth_token = settings.TWILIO_AUTH_TOKEN
     if not auth_token:
         raise HTTPException(status_code=500, detail="TWILIO_AUTH_TOKEN is not configured")
 
     form = await request.form()
     form_dict = {key: value for key, value in form.items()}
 
-    if x_twilio_signature:
+    # Signature validation is HMAC'd over the exact public URL Twilio called.
+    # Behind a local tunnel (ngrok) the proxied scheme/host differ from what
+    # uvicorn reconstructs, so we only enforce it in production.
+    if x_twilio_signature and settings.ENVIRONMENT == "production":
         validator = RequestValidator(auth_token)
-        # Use the full URL Twilio actually called, unmodified.
         full_url = str(request.url)
         if not validator.validate(full_url, form_dict, x_twilio_signature):
             raise HTTPException(status_code=403, detail="Invalid Twilio signature")
 
+    router_workflow = getattr(request.app.state, "router_workflow", None)
     if router_workflow is None:
-        # Defensive: lifespan should have compiled the graph before any request
-        # arrives. If it didn't, the PostgresSaver probably couldn't init
-        # (bad DSN, missing pg, etc.) — surface as a 503.
         raise HTTPException(status_code=503, detail="Router not initialised")
 
-    state, context = await twilio_form_to_state_and_context(form_dict)
-    # thread_id is the same `wa-{phone}` string used by the messages table,
-    # so the PostgresSaver scopes per-thread state per WhatsApp sender.
-    thread_id = make_thread_id(context.phone_number)
-    final_state = await router_workflow.ainvoke(
-        state,
-        context=context,
-        config={"configurable": {"thread_id": thread_id}},
+    # Twilio drops the webhook after 15s, but our pipeline (STT + LLMs + TTS)
+    # routinely takes longer. So we ACK immediately with an empty TwiML and do
+    # the work in the background, then push the reply via the REST API. This is
+    # Twilio's recommended pattern for slow handlers.
+    asyncio.create_task(_process_and_reply(router_workflow, form_dict))
+    return Response(
+        content='<?xml version="1.0" encoding="UTF-8"?><Response></Response>',
+        media_type="application/xml",
     )
 
-    text = final_state.get("output_text") or ""
-    media_url = final_state.get("output_audio_url")
-    return build_twiml_reply(text, media_url)
+
+async def _process_and_reply(router_workflow, form_dict: dict) -> None:
+    """Run the graph and send the reply out-of-band (not blocking the webhook)."""
+    try:
+        state, context = await twilio_form_to_state_and_context(form_dict)
+        thread_id = make_thread_id(context.phone_number)
+        final_state = await router_workflow.ainvoke(
+            state,
+            context=context,
+            config={"configurable": {"thread_id": thread_id}},
+        )
+        text = (final_state.get("output_text") or "").strip()
+        media_url = final_state.get("output_audio_url")
+        await _send_whatsapp(context.phone_number, text, media_url)
+    except Exception:
+        log.exception("background webhook processing failed")
+
+
+async def _send_whatsapp(phone: str, text: str, media_url: str | None) -> None:
+    """Send the reply via Twilio's REST API (text + audio as separate messages)."""
+    from twilio.rest import Client
+
+    client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+    from_ = settings.TWILIO_WHATSAPP_NUMBER  # e.g. "whatsapp:+14155238886"
+    to = f"whatsapp:{phone}"
+
+    def _send() -> None:
+        # WhatsApp audio can't carry a caption, so text and audio go separately.
+        if text:
+            client.messages.create(from_=from_, to=to, body=text)
+        if media_url:
+            client.messages.create(from_=from_, to=to, media_url=[media_url])
+
+    await asyncio.to_thread(_send)

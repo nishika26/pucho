@@ -85,7 +85,7 @@ async def update(review_id: UUID, patch: QAReviewUpdate) -> QAReviewModel | None
             return None
         data = patch.model_dump(exclude_unset=True)
         for k, v in data.items():
-            # StrEnum → plain str so the SQL column (VARCHAR) accepts it.
+            # Enum → plain str so the SQL column (VARCHAR) accepts it.
             if hasattr(v, "value"):
                 v = v.value
             setattr(row, k, v)

@@ -14,6 +14,7 @@ from sqlalchemy import select
 from sqlmodel import col
 
 from config.db import get_session
+from models.enums import EducationLevelLiteral, WorkStatusLiteral
 from models.expert import DomainExpertCreate, DomainExpertModel
 from models.memory import MemoryDomainLiteral
 
@@ -22,12 +23,18 @@ async def create(
     *,
     user_id: UUID,
     domain: MemoryDomainLiteral,
-    display_name: str,
+    name: str,
+    highest_education: EducationLevelLiteral,
+    work_status: WorkStatusLiteral,
+    verified: bool = False,
 ) -> DomainExpertModel:
     payload = DomainExpertCreate(
         user_id=user_id,
         domain=domain,
-        display_name=display_name,
+        name=name,
+        highest_education=highest_education,
+        work_status=work_status,
+        verified=verified,
         active=True,
     )
     async with get_session() as session:

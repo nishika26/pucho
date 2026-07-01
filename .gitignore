@@ -12,3 +12,13 @@ wheels/
 #environment variables
 .env
 
+# Local tunnel binary (downloaded, platform-specific)
+cloudflared
+cloudflared.tgz
+
+# macOS
+.DS_Store
+
+# Streamlit local secrets
+.streamlit/secrets.toml
+

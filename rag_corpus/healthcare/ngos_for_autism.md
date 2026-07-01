@@ -29,7 +29,7 @@ These organisations help families access therapy, education, resources, and comm
 
 ### Services
 - Developmental assessments
-- Medical consultations
+- healthcare consultations
 - Therapy sessions
 - Educational support
 - Parent and caregiver training

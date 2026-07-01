@@ -18,18 +18,16 @@ an inbound `messages` row on the way in.
 
 from __future__ import annotations
 
-import os
 from typing import Any
 from urllib.parse import urlparse
 
 import httpx
 
 from api.routes.whatsapp.audio import upload_audio
+from config.settings import settings
 from crud.message import create_message as create_message_row
-from crud.user import get_or_create_by_phone
-from services.agents.router import RouterContext, State
-
-TWILIO_AUTH_USERNAME = os.environ.get("TWILIO_ACCOUNT_SID", "")
+from crud.whatsapp_user import get_or_create_by_whatsapp_number
+from services.agent.router import RouterContext, State
 
 
 def _is_voice_note(content_type: str | None, body: str | None) -> bool:
@@ -48,8 +46,13 @@ def _strip_whatsapp_prefix(raw: str) -> str:
 
 
 async def _download_voice_bytes(media_url: str) -> bytes:
+    # Twilio media URLs require HTTP basic auth (account SID + auth token) and
+    # then 307-redirect to a pre-signed CDN URL (mms.twiliocdn.com), so we must
+    # follow redirects. httpx strips the auth header on the cross-host hop, which
+    # is fine — the CDN URL is already signed.
     async with httpx.AsyncClient(
-        auth=(TWILIO_AUTH_USERNAME, os.environ["TWILIO_AUTH_TOKEN"])
+        auth=(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN),
+        follow_redirects=True,
     ) as client:
         resp = await client.get(media_url)
         resp.raise_for_status()
@@ -73,7 +76,7 @@ async def twilio_form_to_state_and_context(
     content_type = form.get("MediaContentType0")
     media_url = form.get("MediaUrl0")
 
-    user = await get_or_create_by_phone(phone)
+    user = await get_or_create_by_whatsapp_number(phone)
 
     if num_media > 0 and media_url and _is_voice_note(content_type, body):
         audio_bytes = await _download_voice_bytes(media_url)
@@ -105,10 +108,17 @@ async def twilio_form_to_state_and_context(
             content=body,
         )
 
+    # Seed the stored literacy profile (if any) so the classifier uses it as a
+    # prior instead of starting cold each turn.
+    if user.literacy_level is not None:
+        state["literacy_level"] = user.literacy_level
+
     context = RouterContext(
         user_id=user.id,
         phone_number=phone,
         inbound_message_id=inbound.id,
+        onboarded=user.onboarded,
+        name=user.name,
     )
     return state, context
 
@@ -116,18 +126,25 @@ async def twilio_form_to_state_and_context(
 def build_twiml_reply(text: str, media_url: str | None) -> str:
     """Return a TwiML <Response> body.
 
-    Twilio renders the <Media> element by downloading the URL; the URL must
-    therefore be public (Vercel Blob upload gives us that).
+    Text and audio go in SEPARATE <Message> elements: WhatsApp audio can't
+    carry a caption, so combining a <Body> and an audio <Media> in one message
+    gets rejected (nothing delivers). The public <Media> URL (Vercel Blob) is
+    served as audio/mpeg so WhatsApp can play it.
     """
     # Minimal XML escape for the body — Twilio expects raw XML, not JSON.
     safe_text = (
         text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
     )
-    media_el = f"<Media>{media_url}</Media>" if media_url else ""
-    body_el = f"<Body>{safe_text}</Body>" if safe_text else ""
+    parts: list[str] = []
+    if safe_text:
+        parts.append(f"<Message><Body>{safe_text}</Body></Message>")
+    if media_url:
+        parts.append(f"<Message><Media>{media_url}</Media></Message>")
+    if not parts:
+        parts.append("<Message></Message>")
     return (
         '<?xml version="1.0" encoding="UTF-8"?>'
-        f"<Response><Message>{body_el}{media_el}</Message></Response>"
+        f"<Response>{''.join(parts)}</Response>"
     )
 
 

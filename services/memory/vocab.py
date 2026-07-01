@@ -25,7 +25,7 @@ LEGAL_KEYS: Final[tuple[str, ...]] = (
     "will_or_testament_status",
 )
 
-MEDICAL_KEYS: Final[tuple[str, ...]] = (
+healthcare_KEYS: Final[tuple[str, ...]] = (
     "chronic_conditions",
     "current_medications",
     "known_allergies",
@@ -53,8 +53,8 @@ def keys_for_domain(domain: str) -> tuple[str, ...]:
     """Return the recognised key list for a domain. Empty tuple for unknown."""
     if domain == "legal":
         return LEGAL_KEYS
-    if domain == "medical":
-        return MEDICAL_KEYS
+    if domain == "healthcare":
+        return healthcare_KEYS
     if domain == "financial":
         return FINANCIAL_KEYS
     return ()
@@ -62,7 +62,7 @@ def keys_for_domain(domain: str) -> tuple[str, ...]:
 
 __all__ = [
     "LEGAL_KEYS",
-    "MEDICAL_KEYS",
+    "healthcare_KEYS",
     "FINANCIAL_KEYS",
     "keys_for_domain",
 ]

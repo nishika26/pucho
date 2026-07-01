@@ -1,0 +1,64 @@
+# Render Blueprint — deploys BOTH services from the single Dockerfile:
+#
+#   pucho-webhook    FastAPI Twilio webhook (long-running process, so the
+#                    ACK-then-reply-in-background pattern works here — unlike Vercel)
+#   pucho-dashboard  Streamlit review dashboard (volunteer + expert)
+#
+# Both pull secrets from the shared "pucho-shared" env group — you fill those
+# in once, in the Render dashboard, after the blueprint is created.
+#
+# Deploy:
+#   1. Push this repo to GitHub.
+#   2. Render dashboard → New → Blueprint → pick the repo → Apply.
+#   3. Fill the pucho-shared env group values (see below), then Manual Deploy.
+
+envVarGroups:
+  - name: pucho-shared
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: SARVAMAI_API_KEY
+        sync: false
+      - key: DATABASE_URL          # Supabase pooled connection string
+        sync: false
+      - key: TWILIO_ACCOUNT_SID
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false
+      - key: TWILIO_WHATSAPP_NUMBER # e.g. whatsapp:+14155238886
+        sync: false
+      - key: BLOB_READ_WRITE_TOKEN  # only needed for voice replies (TTS upload)
+        sync: false
+      - key: ENVIRONMENT            # "production" turns on Twilio signature checks
+        value: production
+
+services:
+  # ---- WhatsApp webhook (FastAPI / uvicorn) -------------------------------
+  - type: web
+    name: pucho-webhook
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      - fromGroup: pucho-shared
+
+  # ---- Streamlit review dashboard -----------------------------------------
+  - type: web
+    name: pucho-dashboard
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /_stcore/health
+    autoDeploy: true
+    # Override the image's default CMD (which starts the webhook) to run Streamlit,
+    # bound to Render's injected $PORT. fileWatcherType=none avoids the SQLModel
+    # "Table already defined" reload crash.
+    dockerCommand: uv run streamlit run services/dashboard/app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true --server.fileWatcherType none
+    envVars:
+      - fromGroup: pucho-shared
+      - key: PYTHONPATH
+        value: /app

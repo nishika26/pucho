@@ -142,7 +142,7 @@ If applicable, complete these early because they unlock many schemes and benefit
 
 Hospitals, therapy centres, and rehabilitation centres often have:
 
-- Medical social workers
+- healthcare social workers
 - Family support teams
 
 They can guide families toward relevant NGOs and schemes.
@@ -182,7 +182,7 @@ Maintain a folder containing:
 - UDID card
 - Identity proof
 - Income proof
-- Medical reports
+- healthcare reports
 
 Having these documents ready speeds up applications.
 
@@ -211,7 +211,7 @@ Common requirements include:
 - UDID card (if applicable)
 - Identity proof
 - Income proof
-- Medical records
+- healthcare records
 
 Requirements vary by organisation.
 

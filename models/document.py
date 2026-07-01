@@ -23,8 +23,8 @@ from sqlalchemy import CheckConstraint, String, text
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlmodel import Field, SQLModel
 
-from models.enums import DocumentSourceLiteral
-from models.memory import MemoryDomainLiteral
+from models.enums import DocumentSourceLiteral, pg_enum
+from models.memory import MemoryDomain, MemoryDomainLiteral
 
 
 def _sa_str_col(length: int = 16) -> Any:
@@ -37,7 +37,7 @@ class DocumentBase(SQLModel):
 
     model_config = ConfigDict(from_attributes=True)
 
-    domain: MemoryDomainLiteral = Field(sa_type=_sa_str_col(16), index=True)
+    domain: MemoryDomain = Field(sa_type=pg_enum(MemoryDomain, "domain_enum"), index=True)
     source: DocumentSourceLiteral = Field(sa_type=_sa_str_col(32), index=True)
     qa_review_id: UUID | None = Field(
         default=None,
@@ -65,10 +65,7 @@ class DocumentModel(DocumentBase, table=True):
 
     __tablename__ = "documents"
     __table_args__ = (
-        CheckConstraint(
-            "domain IN ('legal','medical','financial')",
-            name="documents_domain_check",
-        ),
+        # `domain` is a native enum; only `source` needs a CHECK.
         CheckConstraint(
             "source IN ('manual','expert_approved')",
             name="documents_source_check",

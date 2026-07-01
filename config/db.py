@@ -16,12 +16,10 @@ alembic and runtime use the same source of truth.
 
 from __future__ import annotations
 
-import os
 from contextlib import asynccontextmanager
 from typing import AsyncIterator
 
 from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
-from pydantic_core import MultiHostUrl
 from sqlalchemy.ext.asyncio import (
     AsyncEngine,
     AsyncSession,
@@ -29,29 +27,47 @@ from sqlalchemy.ext.asyncio import (
     create_async_engine,
 )
 
+from config.settings import settings
+
 
 def _dsn() -> str:
-    server = os.environ["POSTGRES_SERVER"]
-    user = os.environ["POSTGRES_USER"]
-    password = os.environ.get("POSTGRES_PASSWORD", "")
-    port = int(os.environ.get("POSTGRES_PORT", "5432"))
-    db = os.environ.get("POSTGRES_DB", "postgres")
-    return str(
-        MultiHostUrl.build(
-            scheme="postgresql+psycopg",
-            username=user,
-            password=password,
-            host=server,
-            port=port,
-            path=db,
+    """Raw libpq DSN (psycopg-style). Used by the LangGraph checkpointer.
+
+    Resolves from `DATABASE_URL` or the `POSTGRES_*` parts (see
+    `config.settings.Settings.database_url`).
+    """
+    dsn = settings.database_url
+    if not dsn:
+        raise RuntimeError(
+            "No database configured: set DATABASE_URL or the POSTGRES_* vars."
         )
-    )
+    return dsn
+
+
+def _async_dsn() -> str:
+    """DSN with an explicit async driver for SQLAlchemy's async engine.
+
+    Supabase hands out a plain `postgresql://` URL, which SQLAlchemy maps to
+    the *sync* psycopg2 dialect and then refuses ("asyncio extension requires
+    an async driver"). Coerce it to psycopg3 (`postgresql+psycopg://`), which
+    is already a dependency (via the checkpointer) and — unlike asyncpg —
+    accepts libpq params such as `?sslmode=require` unchanged.
+    """
+    dsn = _dsn()
+    for prefix in ("postgresql+psycopg://", "postgresql+asyncpg://", "postgresql+psycopg2://"):
+        if dsn.startswith(prefix):
+            return dsn
+    if dsn.startswith("postgresql://"):
+        return "postgresql+psycopg://" + dsn[len("postgresql://"):]
+    if dsn.startswith("postgres://"):
+        return "postgresql+psycopg://" + dsn[len("postgres://"):]
+    return dsn
 
 
 def _make_engine() -> AsyncEngine:
     """Build a fresh async engine. Disabled under pytest if env var is set."""
     return create_async_engine(
-        _dsn(),
+        _async_dsn(),
         pool_pre_ping=True,
         future=True,
     )
@@ -80,7 +96,7 @@ async def get_session() -> AsyncIterator[AsyncSession]:
 
     Usage:
         async with get_session() as session:
-            row = await session.get(UserModel, user_id)
+            row = await session.get(WhatsAppUserModel, user_id)
     """
     factory = _factory()
     async with factory() as session:

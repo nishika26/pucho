@@ -21,14 +21,13 @@ class LocalVolunteerBase(SQLModel):
     model_config = ConfigDict(from_attributes=True)
 
     user_id: UUID = Field(
-        foreign_key="users.id",
+        foreign_key="dashboard_users.id",
         unique=True,
         index=True,
         ondelete="CASCADE",
-        description="FK to the login user row (with role='volunteer')",
+        description="FK to the dashboard_users row (role='local_volunteer')",
     )
-    display_name: str = Field(max_length=128)
-    preferred_language: str | None = Field(default=None, max_length=16)
+    name: str = Field(max_length=128)
     active: bool = Field(default=True)
 
 

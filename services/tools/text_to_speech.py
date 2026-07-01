@@ -17,9 +17,11 @@ from sarvamai import AsyncSarvamAI
 
 @lru_cache(maxsize=1)
 def _client() -> AsyncSarvamAI:
-    api_key = os.environ.get("SARVAM_API_KEY")
+    from config.settings import settings
+
+    api_key = settings.SARVAMAI_API_KEY
     if not api_key:
-        raise RuntimeError("SARVAM_API_KEY is not set")
+        raise RuntimeError("SARVAMAI_API_KEY is not set")
     return AsyncSarvamAI(api_subscription_key=api_key)
 
 
@@ -33,12 +35,14 @@ async def text_to_speech(text: str, target_language_code: str) -> bytes:
             "hi-IN"). The domain agent picks this from state["language"].
 
     Returns:
-        Raw WAV bytes ready to upload or stream back to the user.
+        Raw MP3 bytes (audio/mpeg) — the format WhatsApp can play as media.
     """
     response = await _client().text_to_speech.convert(
         text=text,
         target_language_code=target_language_code,
         model="bulbul:v2",
+        # MP3 so WhatsApp/Twilio accept the <Media> (it does NOT support WAV).
+        output_audio_codec="mp3",
     )
     # Sarvam returns base64-encoded audio in `response.audios[0]`.
     return base64.b64decode(response.audios[0])

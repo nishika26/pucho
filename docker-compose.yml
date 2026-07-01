@@ -1,0 +1,54 @@
+# Two services from one image, both reading secrets from .env and talking to
+# the external Supabase database.
+#
+#   docker compose up --build           # start both
+#   docker compose up webhook           # webhook only
+#   docker compose up dashboard         # dashboard only
+#
+# .env must contain (see .env.example):
+#   - DATABASE_URL  (used by BOTH the webhook and the dashboard)
+#   - OPENAI_API_KEY + SARVAMAI_API_KEY + TWILIO_*  (webhook)
+
+services:
+  webhook:
+    build:
+      context: .
+      dockerfile: dockerfile
+    image: pucho
+    command: ["uv", "run", "main.py"]
+    env_file: .env
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/healthz').status==200 else 1)
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: dockerfile
+    image: pucho
+    command:
+      - uv
+      - run
+      - streamlit
+      - run
+      - services/dashboard/app.py
+      - --server.port=8501
+      - --server.address=0.0.0.0
+    env_file: .env
+    environment:
+      # Streamlit runs the script from services/dashboard/, so put the repo
+      # root on the import path.
+      PYTHONPATH: /app
+    ports:
+      - "8501:8501"
+    restart: unless-stopped

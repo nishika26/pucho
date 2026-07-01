@@ -94,8 +94,8 @@ Available accommodations may include:
 
 Families generally need:
 
-- Disability certificate from authorized medical authority
-- Supporting medical documentation
+- Disability certificate from authorized healthcare authority
+- Supporting healthcare documentation
 
 Submit documents to the school at least **3 months before examinations**.
 

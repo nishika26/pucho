@@ -10,20 +10,20 @@ The dashboard listens on `http://localhost:8501` by default.
 
 ## Pages
 
-- **📥 Pending Reviews** — qa_reviews list; volunteers add `local_input`.
-- **✅ Approvals** — experts approve + ingest (chunk + embed → `documents`).
-- **👥 Users** — admin: list reviewers, password reset, role assignment.
-- **🧠 User Memory** — long-term memory inspector (per-user, per-domain).
-- **💬 Conversations** — WhatsApp transcript viewer.
+- **🙋 Local Volunteer** — pending Q&A pairs; volunteers add `local_input`.
+- **🧑‍⚖️ Expert** — pending Q&A pairs (with the volunteer's input shown);
+  experts add `expert_input` and approve (chunk + embed → `documents`) or reject.
 
 ## Roles
 
-The dashboard reads `users.role` (set by admins via the Users page or the
-`crud.user.create_with_email(...)` CRUD helper):
+The dashboard reads `dashboard_users.role`:
 
-- `volunteer` — Pending Reviews only.
-- `expert` — Pending Reviews + Approvals + User Memory (their domain only).
-- `admin` — everything, plus the Users page.
+- `local_volunteer` — Local Volunteer page.
+- `expert` — Expert page (their registered domain(s) only).
+- `admin` — both pages (all domains).
+
+Reviewers are created via `crud.dashboard_user.create_with_email(...)` plus the
+matching `crud.volunteer.create(...)` / `crud.expert.create(...)` profile row.
 
 ## Deploy on Streamlit Community Cloud
 

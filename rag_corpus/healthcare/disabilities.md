@@ -30,7 +30,7 @@ The RPwD Act aligns India with the **United Nations Convention on the Rights of 
 
 Before RPwD 2016, India followed the **Persons with Disabilities Act, 1995**, which recognized only 7 disability categories.
 
-The RPwD Act expanded this to 21 categories and shifted from a purely medical model to a broader social model of disability.
+The RPwD Act expanded this to 21 categories and shifted from a purely healthcare model to a broader social model of disability.
 
 This means disability is understood not only as an impairment, but also as the result of barriers in society and infrastructure.
 
@@ -94,7 +94,7 @@ Usually caused by brain injury before, during, or shortly after birth.
 
 ## Dwarfism
 
-A medical or genetic condition resulting in short stature.
+A healthcare or genetic condition resulting in short stature.
 
 ---
 

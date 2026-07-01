@@ -8,19 +8,14 @@ An expert is a dashboard user with `users.role='expert'` plus one
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any
 from uuid import UUID
 
 from pydantic import ConfigDict
-from sqlalchemy import CheckConstraint, String, text
+from sqlalchemy import text
 from sqlmodel import Field, SQLModel
 
-from models.memory import MemoryDomainLiteral
-
-
-def _sa_str_col() -> Any:
-    """Helper: SQLAlchemy String(16) so SQLModel doesn't introspect a Literal."""
-    return String(length=16)
+from models.enums import EducationLevel, WorkStatus, pg_enum
+from models.memory import MemoryDomain
 
 
 class DomainExpertBase(SQLModel):
@@ -29,16 +24,28 @@ class DomainExpertBase(SQLModel):
     model_config = ConfigDict(from_attributes=True)
 
     user_id: UUID = Field(
-        foreign_key="users.id",
+        foreign_key="dashboard_users.id",
         index=True,
         ondelete="CASCADE",
-        description="FK to the login user row (with role='expert')",
+        description="FK to the dashboard_users row (role='expert')",
     )
-    domain: MemoryDomainLiteral = Field(
-        sa_type=_sa_str_col(),
-        description="legal | medical | financial",
+    domain: MemoryDomain = Field(
+        sa_type=pg_enum(MemoryDomain, "domain_enum"),
+        description="legal | healthcare | financial",
     )
-    display_name: str = Field(max_length=128)
+    name: str = Field(max_length=128)
+    highest_education: EducationLevel = Field(
+        sa_type=pg_enum(EducationLevel, "education_level"),
+        description="high_school | diploma | bachelors | masters | doctorate",
+    )
+    work_status: WorkStatus = Field(
+        sa_type=pg_enum(WorkStatus, "work_status"),
+        description="working | student",
+    )
+    verified: bool = Field(
+        default=False,
+        description="Admin-verified credential check before the expert can approve",
+    )
     active: bool = Field(default=True)
 
 
@@ -46,12 +53,7 @@ class DomainExpertModel(DomainExpertBase, table=True):
     """ORM table for `domain_experts`."""
 
     __tablename__ = "domain_experts"
-    __table_args__ = (
-        CheckConstraint(
-            "domain IN ('legal','medical','financial')",
-            name="domain_experts_domain_check",
-        ),
-    )
+    # `domain` is a native enum, so no CHECK constraint is needed.
 
     id: UUID = Field(
         default=None,

@@ -13,7 +13,7 @@ from enum import StrEnum
 from uuid import UUID
 
 from pydantic import ConfigDict
-from sqlalchemy import text
+from sqlalchemy import CheckConstraint, String, text
 from sqlmodel import Field, SQLModel
 
 
@@ -32,10 +32,14 @@ class MessageBase(SQLModel):
 
     model_config = ConfigDict(from_attributes=True)
 
-    user_id: UUID = Field(foreign_key="users.id", index=True, ondelete="CASCADE")
+    user_id: UUID = Field(
+        foreign_key="whatsapp_users.id", index=True, ondelete="CASCADE"
+    )
     thread_id: str = Field(index=True, max_length=64)
-    role: MessageRole
-    modality: MessageModality
+    # Stored as VARCHAR + CHECK (matching the migration), not a native PG enum.
+    # The StrEnum annotation still gives us typed values app-side.
+    role: MessageRole = Field(sa_type=String(16))
+    modality: MessageModality = Field(sa_type=String(16))
     content: str
 
 
@@ -43,6 +47,12 @@ class MessageModel(MessageBase, table=True):
     """ORM table for `messages`."""
 
     __tablename__ = "messages"
+    __table_args__ = (
+        CheckConstraint("role IN ('human','ai')", name="messages_role_check"),
+        CheckConstraint(
+            "modality IN ('text','voice')", name="messages_modality_check"
+        ),
+    )
 
     id: UUID = Field(
         default=None,

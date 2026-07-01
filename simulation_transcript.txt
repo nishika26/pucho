@@ -1,0 +1,490 @@
+
+========================================================================
+  JYOTSANA — 42, illiterate homemaker; husband is a daily-wage worker — asking about wage rights (legal)
+  Dharavi, Mumbai · voice-first · literacy=low · lang=Hindi
+========================================================================
+
+  ----- Day 1 -----
+
+  👤 (voice)  नमस्ते। मेरे पति की मज़दूरी के हक़ किस तरह के होते हैं? हमें सही दाम नहीं मिलते हैं।
+  🤖  मुझे आपके पति की मज़दूरी के हक़ों के बारे में कोई जानकारी नहीं है। सही जानकारी के लिए आपको अपने नजदीकी मज़दूर संगठनों या सरकारी कार्यालयों से संपर्क करना होगा। वहां आपको सही दिशा-निर्देश और मदद मिलेगी।
+      ↳ [domain=financial | literacy=low | tone=worried]
+
+  👤 (voice)  मेरे पति को पूरा पैसा नहीं मिलता। मुंबई में न्यूनतम मज़दूरी कितनी होनी चाहिए?
+  🤖  मुझे मुंबई में न्यूनतम मज़दूरी के बारे में जानकारी नहीं है। आप नजदीकी श्रम विभाग कार्यालय या किसी मज़दूर संगठन से संपर्क कर सकते हैं। वो आपको सही जानकारी देंगे।
+      ↳ [domain=financial | literacy=low | tone=worried]
+
+  ----- Day 2 -----
+
+  👤 (voice)  अगर मालिक कम पैसा दे और समय पर ना दे, तो हम क्या कर सकते हैं? हमें क्या कदम उठाना चाहिए?
+  🤖  अगर मालिक कम पैसा दे और समय पर ना दे, तो aapke kuch haq hain. Pehle toh, aapko apne wages ka proof chahiye hoga. Wage slip hona zaroori hai, chahe wo electronic ho ya paper par. Yeh slip aapko har baar payment se pehle milni chahiye.
+
+Agar aapko abhi tak payment nahi mila, toh aap apne employer se baat karke samjhayein. Agar woh nahi sunte, toh aapko apne nearest labor department ka office jaana chahiye. Wahan aap complaint daakhil kar sakte hain.
+
+Yeh steps aap le sakte ho:
+1. Apna wage slip aur koi aur kaagaz as proof rakhein.
+2. Apne local labor department ke office jayein.
+
+Wahan pe aapko aage ki madad milegi.
+      ↳ [domain=legal | literacy=low | tone=worried]
+
+  ----- Day 3 -----
+
+  👤 (voice)  मज़दूरों के क्या हक होते हैं? हमें क्या मिलना चाहिए? क्या आपको इसके बारे में कुछ जानकारी है?
+  🤖  मज़दूरों के पास bahut se haq hote hain. 
+
+1. **वेतन का हक**: Har mazdoor ko unke kaam ke liye sahi aur samay par paisa milna chahiye. Agar employer paisa nahi deta, toh aap complaint kar sakte hain.
+
+2. **ओवरटाइम का हक**: Agar aap extra kaam karte hain, toh aapko double paise milne chahiye.
+
+3. **बोनस का हक**: Agar aapne saal bhar kaam kiya hai, toh aapko ek bonus bhi milna chahiye.
+
+4. **काम के समय का हक**: Aapko din mein zyada se zyada 12 ghante kaam karne ka haq hai, aur hafte mein 48 ghante tak.
+
+5. **सुरक्षित काम का हक**: Aapko aise kaam par nahi rakhna chahiye jo aapki jaan ya sehat ke liye khatara ho.
+
+Agar aapko in haqon ke baare mein aur madad chahiye, toh aap apne local labor department ya kisi qualified lawyer se baat karein. Yahan se aapko achhi guidance milegi.
+      ↳ [domain=legal | literacy=low | tone=neutral]
+
+  ----- Day 5 -----
+
+  👤 (voice)  अगर ज़्यादा घंटे काम करवा रहे हैं पर ओवरटाइम का पैसा नहीं देते, तो यह सही नहीं है। आपको ओवरटाइम का पैसा मिलना चाहिए। क्या आपने उनसे बात की है इस बारे में?
+  🤖  Agar aap zyada ghante kaam karte hain lekin aapko overtime ka paisa nahi mil raha, toh yeh galat hai. Aapko overtime ka paisa milna chahiye, jo ki aapke normal wage se double hota hai.
+
+Aapko sabse pehle apne employer se is bare mein baat karni chahiye. Samjhaane ki koshish karein ki aapne jo extra kaam kiya hai, uska aapko compensation milna chahiye.
+
+Agar baat nahi ban rahi hai, toh aap apne local labor department ya kisi qualified lawyer se madad le sakte hain. Unhe apni puri baat samjha kar unki madad liye. Aaj hi unse sampark karein.
+      ↳ [domain=legal | literacy=low | tone=worried]
+
+  ----- Day 6 -----
+
+  👤 (voice)  अगर शिकायत करनी हो तो आपको अपने नजदीकी लेबर विभाग के ऑफिस जाना चाहिए। वहाँ आप अपनी समस्या को बताकर लिखित शिकायत कर सकते हैं। वहाँ की प्रोसेस के बारे में आपको पूरी जानकारी मिल जाएगी।
+  🤖  Bilkul sahi kaha aapne! Aapko apne njaadiqi labor department ke office jaana chahiye. Wahan aap apni samasya ko batakar likhit shikayat kar sakte hain. 
+
+Wahan ke log aapko pura process samjha denge. Aaj hi jayein aur madad lein.
+      ↳ [domain=legal | literacy=low | tone=neutral]
+
+  ----- Day 7 -----
+
+  👤 (voice)  बहुत बहुत धन्यवाद। आपने बड़ी मदद की। मुझे अब समझ में आ गया है कि क्या करना है।
+  🤖  Koi baat nahi! Aapko madad karna accha laga. Agar aapko aur kuch chahiye ya doubt ho, toh zarur puchiye. Aapka din achha ho!
+      ↳ [domain=financial | literacy=low | tone=hopeful]
+
+  🧠 What Pucho learned about Jyotsana (literacy=low):
+      - [legal] legal.ongoing_legal_cases: User is considering contacting a local labor department or a qualified lawyer regarding unpaid overtime.
+
+========================================================================
+  MANISHA — 38, domestic worker, MA-educated; son (7) is autistic (healthcare + legal)
+  Parel chawl, Mumbai · text-first · literacy=medium · lang=Marathi
+========================================================================
+
+  ----- Day 1 -----
+
+  👤 (text)  नमस्कार, तुम्ही कशा आहात? ऑटिझमबद्दल अधिक माहिती हवी आहे का? तुम्हाला मदतीसाठी कोणतीच गोष्ट विचारायची असेल तर मला सांगा.
+  🤖  माहिती हवी असल्यास, ऑटिझमबद्दल आपल्याला काही महत्वाचे मुद्दे सांगतो:
+
+1. **ऑटिझम काय आहे?:** ऑटिझम एक विकासात्मक विकार आहे जो सामान्यतः संवाद, सामाजिक वर्तन, आणि विचारप्रवृत्तीवर प्रभाव टाकतो.
+
+2. **लक्षणे:** लहान मुलांमध्ये सामाजिक कौशल्य कमी असणे, दोन्ही बाजूला बातचित न करणे किंवा एकच गोष्ट अनेक वेळा करणे यासारखी लक्षणे असू शकतात.
+
+3. **सपोर्ट:** जर तुम्हाला सपोर्ट हवे असेल तर तुम्ही खालील NGOs च्या संपर्कात येऊ शकता:
+   - **Forum for Autism (Mumbai)**: [forumforautism.org](https://www.forumforautism.org/)
+   - **Sethu Child Development and Family Guidance Centre (Goa)**: [sethu.in](https://sethu.in/)
+   - **Ummeed Child Development Center (Mumbai)**: [ummeed.org](https://ummeed.org/)
+
+ही संस्था तुम्हाला थेरपी, शिक्षण, आणि इतर मदतीसाठी सहाय्य देतील. 
+
+जर तुम्हाला तात्काळ मदतीची आवश्यकता असेल तर कृपया योग्य डॉक्टर किंवा तज्ञाकडे जा.
+      ↳ [domain=healthcare | literacy=medium | tone=neutral]
+
+  👤 (text)  माझ्या मुलाची काळजी घेण्यासाठी कोणते डॉक्टर किंवा संस्था मदत करू शकतात, हे तुम्हाला माहिती आहे का? मला थोडक्यात सांगितलं तर बरं होईल.
+  🤖  होय, तुमच्या मुलाच्या काळजीसाठी तुम्ही खालील संदर्भ वापरू शकता:
+
+1. **आंगणवाडी केंद्र:** तुमच्या जवळील आंगणवाडी केंद्रामध्ये बोला. ते लहान मुलांच्या वाढीचा व विकासाचा अभ्यास करतात आणि आवश्यक ते मार्गदर्शन देतात.
+
+2. **राश्ट्रीय बेबी व आरोग्य योजना (RBSK):** ह्या योजनेतील टीम तुमच्या मुलाच्या आरोग्यावर काम करेल, आणि आवश्यक असल्यास, तज्ञांकडे पाठवेल.
+
+3. **जिल्हा रुग्णालय:** येथे तुम्हाला एक चांगला चिकित्सक सापडू शकतो जो तुमच्या मुलाच्या समस्या समजून घेऊन त्याच्याशी संबंधित मदतीची सूचना करेल.
+
+तुमचा अनुभव चांगला जावा यासाठी या ठिकाणी जावे लागेल. गरज भासल्यास तात्काळ मदतीसाठी योग्य डॉक्टर्सच्या संपर्कात रहा.
+      ↳ [domain=healthcare | literacy=medium | tone=worried]
+
+  ----- Day 2 -----
+
+  👤 (text)  दोन शाळांनी त्याला प्रवेश नाकारल्यावर तुम्ही कायद्याच्या बाबतीत विचार करत असाल तर हे योग्य नाही. मुलांच्या शिक्षणाचे हक्क आहेत, विशेषतः ऑटिझम असलेल्या मुलांसाठी. तुम्हाला योग्य मदतीसाठी तज्ञ वकीलांकडे जावे लागेल. तुम्ही कुठल्या शाळांमध्ये अर्ज केला होता?
+  🤖  आपण अगदी बरोबर बोलता की ऑटिझम असलेल्या मुलांना शिक्षणाचे हक्क आहेत. शाळांची जबाबदारी आहे की ते या हक्कांचा आदर करतात.
+
+आपल्या पाठीशी रुग्णालयाने दिलेल्या 'डक्टरी प्रमाणपत्राचा' उपयोग करून शाळांमध्ये पुनःसंवाद करणे जरूरीचे आहे. तुम्ही शाळांमध्ये जाऊन त्यांच्या नियमांबद्दल समजून घेऊ शकता.
+
+आणखीही मदतीसाठी, तज्ञ वकील किंवा स्थानिक विधी सहाय्य केंद्रात जाऊन त्यांच्या सल्ल्यानुसार पुढील टप्पे ठरवू शकता.
+      ↳ [domain=legal | literacy=medium | tone=frustrated]
+
+  ----- Day 3 -----
+
+  👤 (text)  होय, ऑटिस्टिक मुलांच्या थेरपी आणि शिक्षणासाठी काही सरकारी योजना आणि एनजीओ आहेत. 
+
+1. **मिशन ऑटिझम:** ही योजना ऑटिस्टिक मुलांसाठी विविध थेरपी आणि शिक्षणाचे पर्याय उपलब्ध करते.
+
+2. **शिक्षण योजनाएं:** खासगी शाळांमध्ये शिक्षण घेणाऱ्या मुलांसाठी महाराष्ट्र सरकारने काही शासकीय योजना तयार केल्या आहेत.
+
+आणि, **आउटरीचर्स** म्हणून बरेच एनजीओ आहेत, जसे की 'उम्मीद' आणि 'फोरम फॉर ऑटिझम', जे थेरपीसाठी सहकार्य करतात. तुम्हाला त्यांच्या संपर्कात जावे लागेल.
+  🤖  तुमचं लक्ष वेधून घेतल्याबद्दल धन्यवाद. तुमच्या सूचीमध्ये काही महत्त्वाचे एनजीओ आहेत. 
+
+तुम्ही वैकल्पिक थेरपी आणि शिक्षणासाठी खालील एनजीओंशी संपर्क साधू शकता:
+
+1. **उम्मीद चाइल्ड डेव्हलपमेंट सेंटर** - मुम्बई मध्ये स्थित, ते विकासात्मक मूल्यांकन, थेरपी सत्र, आणि शैक्षणिक समर्थन देतात. वेबसाइट: [ummeed.org](https://ummeed.org/)
+
+2. **फोरम फॉर ऑटिझम** - यांनाही थेरपी आणि फंडिंगसाठी मदतीत असतात.
+
+सरकारी योजनांसाठी, तुमच्या निकटच्या जिल्हा विकसनात्मक पुनर्वसन केंद्रात (DDRC) थेरपीसाठी माहिती मिळवू शकता. सरकारी योजना, थेरपीचे खर्च कमी करण्यासाठी उपयुक्त ठरू शकतात.
+
+संपूर्ण माहितीसाठी तज्ञ वकील किंवा स्थानिक NGO च्या सहाय्याने अधिक माहिती घेणं चांगलं राहील.
+      ↳ [domain=healthcare | literacy=medium | tone=neutral]
+
+  ----- Day 5 -----
+
+  👤 (text)  मी दिवसभर ३ घरांमध्ये काम करते, त्यामुळे मुलाला ठेवायला कुठेही जागा नाही. मुम्बईमध्ये डे-केअर किंवा विशेष केंद्रं आहेत का? त्यांचं संपर्क विवरण सापडू शकतं का?
+  🤖  तुमच्या मुलासाठी मुम्बईमध्ये काही विशेष केंद्रं आणि डे-केअर आहेत. खालील एनजीओंचा संपर्क तुम्हाला मदत करू शकतो:
+
+1. **उम्मीद चाइल्ड डेव्हलपमेंट सेंटर**  
+   - **सेवाएँ**: विकासात्मक मूल्यांकन, थेरपी सत्र, शैक्षणिक समर्थन.
+   - **वेबसाइट**: [ummeed.org](https://ummeed.org/)
+
+2. **फोरम फॉर ऑटिझम**  
+   - **सेवाएँ**: थेरपी, शैक्षणिक समर्थन, आणि जागरूकता कार्यक्रम.
+   - **वेबसाइट**: [forumforautism.org](https://www.forumforautism.org/)
+
+तुम्ही या केंद्रांशी थेट संपर्क साधून उपलब्धता आणि अधिक माहिती मिळवू शकता. हे ठिकाणे तुमच्या मुलाला सुरक्षित ठिकाणी ठेवायला उपयुक्त असतील.
+      ↳ [domain=healthcare | literacy=medium | tone=worried]
+
+  ----- Day 6 -----
+
+  👤 (text)  माझ्या मुलासाठी UDID अपंगत्व प्रमाणपत्र मिळवण्यासाठी कोणती कागदपत्रं लागतील हे तुम्ही सांगू शकाल का? कृपया माहिती द्या.
+  🤖  UDID अपंगत्व प्रमाणपत्रासाठी आवश्यक कागदपत्रं खालीलप्रमाणे आहेत:
+
+1. **व्यक्तिगत माहिती**:
+   - नाव
+   - मोबाईल क्रमांक
+   - ई-मेल
+   - जन्मतारीख
+   - लिंग
+   - पत्ता
+
+2. **अपंगत्व संबंधित माहिती**:
+   - अपंगत्वाचा प्रकार
+   - कायमचा किंवा तात्पुरता अपंगत्व
+   - विद्यमान अपंगत्व प्रमाणपत्राची माहिती (जर असेल तर)
+
+3. **ओळखपत्र**: 
+   - आधार कार्ड, पासपोर्ट, किंवा अन्य कोणतेही मान्य ओळखपत्र.
+
+सर्व कागदपत्रं तुमच्या अधिकृत दस्तावेजांशी मिळती जुळणी करायला पाहिजे. तुम्हाला अधिक माहिती आणि अर्जासाठी संकेतस्थळावर जायचं असल्यास खालील लिंक वापरा:
+
+[UDID अर्जासाठी](https://www.swavlambancard.gov.in)
+
+जर तुम्हाला आणखी काही मदतीची आवश्यकता असेल तर संपर्क साधा!
+      ↳ [domain=healthcare | literacy=medium | tone=neutral]
+
+  ----- Day 7 -----
+
+  👤 (text)  होय, अपंग मुलाला शाळा कायदेशीररीत्या प्रवेश नाकारू शकत नाही. भारतातल्या शिक्षणाच्या अधिकार कायद्यानुसार, सर्व मुलांना शिक्षणाचा अधिकार आहे, ज्यात अपंग मुलंही समाविष्ट आहेत. जर तुम्हाला प्रवेशात अडचणी येत असतील, तर तुम्ही स्थानिक अधिकार्यांशी संपर्क साधण्याची शिफारस करते. तुम्हाला मदतीची गरज असल्यास, मी आणखी माहिती देऊ शकेन.
+  🤖  बरोबर! अपंग मुलांना शाळेत प्रवेश नाकारला जाऊ शकत नाही. शिक्षणाच्या अधिकार कायद्यानुसार, सर्व मुलांना, विशेषतः अपंग मुलांना, शालेय शिक्षण मिळण्याचा अधिकार आहे. 
+
+जर तुम्हाला शाळेत प्रवेश मिळण्यात अडचणी येत असतील, तर तुम्ही खालील पायऱ्या उचलू शकता:
+
+1. **शाळेशी संपर्क करा**: शाळेच्या प्राचार्यासोबत किंवा प्रशासनाशी थेट चर्चा करा आणि तुमचं हक्क सांगितलं पाहिजे.
+2. **स्थानीय शिक्षण कार्यालयाला संपर्क करा**: तुमच्या क्षेत्रातील शिक्षण अधिकारी किंवा शिक्षण विभागाशी संपर्क साधा. तुम्ही तिथे तक्रार नोंदवू शकता.
+3. **अपंगत्व प्रमाणपत्र दाखवा**: शाळेला आधिकारिक अपंगत्व प्रमाणपत्र द्या, जे ठरवितं की अपंग मुलं शिक्षणासाठी योग्य आहेत. 
+
+आणखी मदतीसाठी, तुम्ही स्थानिक कायदा सहाय्यक किंवा कायदा तज्ञाशी संपर्क साधू शकता.
+      ↳ [domain=legal | literacy=medium | tone=neutral]
+
+  🧠 What Pucho learned about Manisha (literacy=medium):
+      - [legal] legal.state_of_residence: India
+      - [legal] legal.dependents: {'type': 'child', 'disability': 'yes'}
+      - [healthcare] healthcare.pregnancy_status: User has a child and is looking for daycare options due to work commitments.
+      - [healthcare] healthcare.chronic_conditions: ['autism']
+
+========================================================================
+  GAURAV — 21, commerce student — asking about scholarships for his studies (financial)
+  Matunga, Mumbai · text-first · literacy=medium · lang=Hinglish
+========================================================================
+
+  ----- Day 1 -----
+
+  👤 (text)  Haan, mujhe scholarships ke baare mein information chahiye thi, especially financial support ke liye. Koi options hai kya?
+  🤖  Haan, scholarships ke kuch options available hain jo financial support provide karte hain. Yahan kuch schemes hain:
+
+1. **Merit-Based Scholarships**: Agar aapki academics strong hain, toh inmein apply kar sakte hain.
+   - **UPES Humanities Scholarships**: B.A. Honors programs ke liye up to 30% tak merit scholarship de sakte hain. Eligibility Class 12 scores par depend karti hai.
+
+2. **Need-Based Scholarships**: Yeh scholarships un students ke liye hain jo economically weaker backgrounds se hain. 
+   - **Pradhan Mantri Uchchatar Shiksha Protsahan Yojana (PM-USP)**: Ismein financial assistance income level aur academic merit par base hota hai.
+
+3. **Government and Institutional Scholarships**: Kuch institutions bhi scholarships deti hain.
+   - **Indian Council for Cultural Relations (ICCR)**: Yeh scholarships Indian aur international students ke liye hain jo undergraduate, postgraduate, aur PhD programs mein support karti hain.
+
+**Apply karne ke liye steps**:
+1. In scholarships ke official websites par jayein.
+2. Eligibility criteria aur documents ki list check karein.
+3. Online application form fill karein aur submit karein.
+
+Agar aur specific information chahiye ya kisi particular scheme ke liye help chahiye, toh mujhe batao!
+      ↳ [domain=financial | literacy=medium | tone=neutral]
+
+  👤 (text)  Mujhe apne college ki padhai ke liye scholarship chahiye, jo meri financial needs ko support kare. Kaun si specific options mil sakti hain?
+  🤖  Agar aapki financial needs hain, toh aap in scholarships ke liye apply kar sakte hain:
+
+1. **AICTE Pragati Scholarship**: Yeh scholarship INR 50,000 per year tak ki madad deti hai, specifically female students ke liye jo engineering ya technical courses pursue kar rahi hain.
+
+2. **Post-Matric Scholarship**: Yeh scholarship Maharashtra ke students ke liye hai, jisme aapko monthly INR 230 se INR 1,200 tak mil sakta hai. Iske liye family income criteria cover hona chahiye.
+
+3. **Merit-cum-Means Scholarship**: Agar aapki family income ₹2.5 lakh se kam hai aur agar aap ne minimum 50% marks achieve kiye hain, toh aap is scholarship ke liye eligible ho sakte hain.
+
+**Apply karne ke liye zaroori documents**:
+- Passport-size photograph
+- Course fee receipt
+- Income certificate
+- Aadhaar card
+- Previous mark sheet
+
+In scholarships ke liye apply karne ke liye aapko respective college ya government education department ki website par jana hoga. Toh, jaldi se dekhiye aur apply kariye! Agar koi aur help chahiye ho, toh mujhe batao!
+      ↳ [domain=financial | literacy=medium | tone=worried]
+
+  ----- Day 2 -----
+
+  👤 (text)  Eligibility ke liye kya documents chahiye aur kya specific criteria hote hain, mujhe thoda detail mein bata sakte ho? Toh main sahi se apply kar sakun.
+  🤖  Scholarships ke liye eligibility aur documents alag-alag hote hain. Yahaan kuch common details di gayi hain:
+
+### 1. **National Means-cum-Merit Scholarship (NMMS)**
+- **Eligibility Criteria**: 
+  - Family income limit (mukhya roop se Rs 1.5 lakh per annum tak).
+  - 8th class ke students ke liye jo 9th class mein admission lena chahte hain.
+  - Achieve minimum 55% marks in class 8.
+  
+- **Documents Required**:
+  - Aadhaar card
+  - Family income certificate
+  - 8th class marksheet
+  - Bank passbook (student ke naam par)
+  
+### 2. **PM YASASVI Central Sector Scheme for OBC, EBC and DNT Students**
+- **Eligibility Criteria**: 
+  - Specifically OBC, EBC, aur DNT students ke liye.
+  - Family income limit (alagh-alagh schemes mein).
+
+- **Documents Required**:
+  - Aadhaar card
+  - Caste certificate
+  - Income certificate
+  - Class 10 aur 12 marksheets
+
+### 3. **Post-Matric Scholarship for EBC Students**
+- **Eligibility Criteria**: 
+  - EBC students ke liye jo post-matriculation studies kar rahe hain.
+  - Family income threshold ke andar hona chahiye.
+
+- **Documents Required**:
+  - Aadhaar card
+  - Income certificate
+  - Last exam ka marksheet
+  - Bank passbook
+
+### Applications ka Process:
+1. **Application Portal Visit Karo**: National Scholarship Portal par jaake register karo.
+2. **Documents Upload Karo**: Zaroori documents upload karo.
+3. **Verification Process**: College se verification ho jaane ke baad, aapki scholarship apply ho jayegi.
+
+Har scholarship ke specific criteria aur requirements hote hain, toh in sab cheezon ko achhe se check kar lena. Agar koi specific scholarship mein doubt hai, toh zaroor batao!
+      ↳ [domain=financial | literacy=medium | tone=hopeful]
+
+  ----- Day 4 -----
+
+  👤 (text)  Haan, agar aapki papa ki income kam hai, toh aapko kuch special scholarships mil sakti hain. Kya aapko specific details chahiye ki kaun si schemes hain low-income students ke liye?
+  🤖  Haan, low-income students ke liye kuch special scholarships hain. Yahaan par kuch popular schemes ke details hain:
+
+### 1. **Central Sector Scheme of Scholarship**
+- **Eligibility**:
+  - 12th class mein 80th percentile se upar hona chahiye.
+  - Regular degree programs pursue karna (distance nahi).
+  - Annual family income ≤ ₹4.5 lakh.
+
+- **Scholarship Amount**:
+  - ₹12,000 per year for graduation (pehle 3 saal).
+  
+- **Application**: National Scholarship Portal (NSP) par apply karo.
+
+### 2. **Post-Matric Scholarship for EBC Students**
+- **Eligibility**:
+  - Economic Backward Classes se hona chahiye.
+  - Annual family income threshold ke andar hona chahiye.
+
+- **Benefits**: Tuition fee reimbursement aur maintenance allowance.
+
+- **Application**: State government ke scholarship portal par apply karo.
+
+### 3. **National Means-cum-Merit Scholarship (NMMS)**
+- **Eligibility**:
+  - 8th class ke students jo 9th class mein admission lena chahte hain.
+  - Family income limit ₹1.5 lakh tak.
+
+- **Documents Required**: Aadhaar card, income certificate, aur marksheet.
+
+### Steps to Apply:
+1. National Scholarship Portal visit karo.
+2. Required documents upload karo.
+3. Application form fill karo aur submit karo.
+
+In scholarships ki detail ko achhe se check kar lo aur apply karne ki tayyari shuru karo. Agar koi specific scheme mein doubt hai toh zaroor batao!
+      ↳ [domain=financial | literacy=medium | tone=neutral]
+
+  ----- Day 6 -----
+
+  👤 (text)  Apply karne ke liye mujhe kya specific documents chahiye honge? Aur application process thoda aur explain kar sakte ho?
+  🤖  Apply karne ke liye aapko kuch specific documents chahiye honge. Yahan par kuch common documents hain jo aapko chahiye honge:
+
+### Required Documents:
+1. **Aadhaar Card**: Mobile number se linked hona chahiye.
+2. **Income Certificate**: Family ki annual income ka proof.
+3. **Class 10 aur Class 12 Marksheet**: Aapke academic performance ka proof.
+4. **Bonafide Student Certificate**: College se milta hai, yeh batata hai ki aap wahaan pad rahe hain.
+5. **Bank Passbook**: Student ke naam par, Aadhaar-linked aur direct benefits transfer (DBT) support karna chahiye.
+6. **Caste Certificate**: Agar applicable ho toh.
+
+### Application Process:
+1. **Registration**:
+   - National Scholarship Portal (NSP) par jaakar "New Registration" par click karo.
+   - Aadhaar aur OTP use karke verify karo aur apna OTR ID le lo.
+
+2. **Profile & Institute Mapping**:
+   - Apne academic details, NEET rank aur college information fill karo.
+   - Apne healthcare college ko NSP ke database se select karo.
+
+3. **Scheme Selection & Document Upload**:
+   - Schemes selection ke liye income, state aur category choose karo.
+   - Sabhi required documents upload karo.
+
+4. **Final Submission**:
+   - Application ko review karo, Bonafide Student Certificate download karo, college se sign karwao aur final submit karo.
+
+Yeh process ensure karta hai ki aapki application properly complete ho aur timely submit ho. Agar aur koi confusion hai toh pucho!
+      ↳ [domain=financial | literacy=medium | tone=neutral]
+
+  ----- Day 7 -----
+
+  👤 (text)  Thanks bhai, isse kaafi help mili. Aur agar aur questions aaye toh main puchh loon?
+  🤖  Bilkul! Jab bhi aapko koi questions ho ya madad chahiye ho, bas puchh lo. Main yahan hoon aapki help karne ke liye. Aapka padhai ka safar achha rahe!
+      ↳ [domain=financial | literacy=medium | tone=hopeful]
+
+  🧠 What Pucho learned about Gaurav (literacy=medium):
+      - [financial] financial.existing_loans: []
+      - [financial] financial.annual_income_bracket: ≤ ₹4.5 lakh
+      - [financial] financial.dependents_financial: {'needs': 'scholarship for college education', 'criteria': 'financial needs support'}
+
+========================================================================
+  MOHAN — 50, illiterate street vendor, migrant — wants a driving licence (legal)
+  Dadar, Mumbai (migrated from Odisha) · voice-first · literacy=low · lang=Hinglish
+========================================================================
+
+  ----- Day 1 -----
+
+  👤 (voice)  Namaste. Mujhe driving licence chahiye, lekin mujhe samajh nahi aa raha kaise karna hai. Thoda madad karo please.
+  🤖  Namaste! Driving licence ke liye aapko kuch kaagaz ki zaroorat hogi. Yahan par main aapko sabhi zaroori kaagaz bata raha hoon.
+
+1. **Age proof**: Aapke age ka proof chahiye hoga, jaise ki Aadhaar ya 10th ka marksheet.
+2. **Address proof**: Aapka address proof bhi chahiye hoga. Aadhaar sabse aasan hota hai.
+3. **Passport photos**: Do fresh photos chahiye, white background mein.
+4. **Form 1**: Ye form online bharna hota hai. Ye self-declaration hota hai.
+5. **Signature**: Aapka signature bhi kaagaz par hona chahiye.
+
+Agar aap learner's licence lena chahte hain, to inka sab kaagaz lekar aapko nearest RTO (Regional Transport Office) jaana hoga. Wahan par aap apply kar sakte hain.
+
+Jaldi se in kaagaz ko ready kariye aur RTO se madad lijiye.
+      ↳ [domain=legal | literacy=low | tone=worried]
+
+  ----- Day 2 -----
+
+  👤 (voice)  Mujhe yeh kaagaz toh mil jayega, lekin RTO jaana kaise hota hai? Kya wahan koi madad milegi mujhe?
+  🤖  RTO jaana kaafi aasaan hai. Wahan par aapko madad milne wali hai. RTO mein staff hote hain jo aapki madad karte hain. Aapko bas yeh karna hai:
+
+1. **Timing**: RTO khule hone ka time dhyaan rakhiye. Subah se behtar hota hai jana.
+2. **Queue**: Jab aap wahan pahunchte hain, toh line mein rahiye. Aapko apna number aayega.
+3. **Documents**: Apne sabhi kaagaz pakad ke rakhiyega. Wahan staff aapko check karke batayenge ki kya karna hai.
+4. **Query**: Agar kuch samajh nahi aata, toh staff se poochiye. Unse seedhe madad maang sakte hain.
+
+Agar aapko koi dikkat aaye, toh wahan par helpline number ya customer service desk hoti hai, jahan aap madad le sakte hain. Aaj hi RTO jana shuru kariye!
+      ↳ [domain=legal | literacy=low | tone=worried]
+
+  ----- Day 3 -----
+
+  👤 (voice)  Mujhe Licence ke liye kaunse kaagaz aur documents chahiye, please bataiye. Kya sab same hai jo aapne pehle bataya tha?
+  🤖  Haan, licence ke liye aapko kuch khaas kaagaz chahiye hote hain. Yeh rahi zaroori cheezein:
+
+1. **Aayu ka saboot**: Aapko 1 kaagaz chahiye jo aapki age dikhata ho, jaise Aadhaar ya 10th ka marksheet.
+2. **Pata ka saboot**: Aapko 1 kaagaz chahiye jo aapka address dikhaye, Aadhaar preferred hai.
+3. **Passport photos**: 2 photographs chahiye jo safed background par honi chahiye.
+4. **Form 1**: Yeh form aapko online bharna padega.
+5. **Signature**: Aapko apna signature upload karna ya scan karna hoga.
+6. **Form 1A**: Sirf transport licence ke liye doctor se bharwana hota hai.
+
+Yeh documents aapke driving licence ya learner’s licence ke liye chahiye. RTO jaakar in sab ko le jaayein. Aapko wahan staff madad karenge. Aaj hi apne kaagaz taiyaar karein aur RTO jayen!
+      ↳ [domain=legal | literacy=low | tone=neutral]
+
+  ----- Day 5 -----
+
+  👤 (voice)  Haan, aapko license mil sakta hai. Padha likha hona zaroori nahi hai, bas kaagaz sahi hona chahiye. RTO staff aapki madad karenge, tension mat lijiye. Aap jaake dekhiye!
+  🤖  Bilkul, aapko licence mil sakta hai. Padha-likha hona zaroori nahi. Bas sahi kaagaz chahiye hote hain. 
+
+**Kya kya kaagaz chahiye:** 
+1. **Aayu ka saboot**: Aapko koi ek kaagaz chahiye jo aapki age dikhaye.
+2. **Pata ka saboot**: Aapko apna address dikhane wala kaagaz.
+3. **Photos**: 2 safed background wali photos.
+4. **Form 1**: Yeh online bharna hai.
+5. **Signature**: Apna signature bhejna will zaroori hai.
+6. **Form 1A**: Agar transport licence ke liye apply kar rahe ho toh doctor ka sign chahiye.
+
+Aap RTO jaake staff se madad le sakte hain. Aaj hi yeh kaagaz taiyaar kar ke RTO jayein!
+      ↳ [domain=legal | literacy=low | tone=hopeful]
+
+  ----- Day 6 -----
+
+  👤 (voice)  RTO office mein jaake pehle line mein rahiye. Jab aapka number aaye, tab unse apne documents dikhaiye. Staff aapko next steps batayenge, jaise test schedule karna ya aur koi form bharna. Agar kuch samajh nahi aaye toh poochte rahiye, koi tension nahi!
+  🤖  Bilkul sahi bola aapne! RTO office mein jaake line mein rahiye. Jaise hi aapka number aaye, staff se milke apne documents dikhaiye. 
+
+Woh aapko agle steps samjhayenge, jaise test dena padega ya koi aur form bharna hoga. Agar kuch samajh nahi aaye toh bina ghabraye, poochte rahiye. Sab madad karne ko tayaar hain! 
+
+Toh, aaj hi RTO ka chakkar laga ke sab kaagaz le jayein. Aap zaroor kar lenge!
+      ↳ [domain=legal | literacy=low | tone=neutral]
+
+  ----- Day 7 -----
+
+  👤 (voice)  Learning licence aur pakka licence mein kya farak hai? Aur learning licence ke liye test dena padta hai kya?
+  🤖  Learning licence aur pakka licence mein yeh farak hai:
+
+Learning licence (LL) aapko tab milta hai jab aap naya seekhna shuru karte hain. Isse aap driving practice kar sakte hain, lekin sirf kisi bade driver ke saath jaake. 
+
+Pakka licence aap tab lete hain jab aap driving kaafi achhe se seekh lete hain aur test pass karte hain. Ye license aapko akela gaadi chalane ki ijazat deta hai.
+
+Learning licence ke liye test dena nahi padta hai. Bas aapko waise documents dene padte hain jaise age proof aur address proof. Agar aapko driving seekhni hai toh learning licence ke liye RTO jaake apply kar sakte hain. 
+
+Aaj hi RTO ka chakkar laga kar apne kaagaz le jayen.
+      ↳ [domain=legal | literacy=low | tone=neutral]
+
+  🧠 What Pucho learned about Mohan (literacy=low):
+      - [legal] legal.state_of_residence: India
+
+========================================================================
+  ENRICHMENT LOOP — volunteer + experts (legal / healthcare / financial)
+========================================================================
+
+  [legal] Q: Learning licence aur pakka licence mein kya farak hai? Aur l…
+    ✍️  Volunteer (Gaurav) added local input.
+    ✅  Expert (Hema Joshi) approved + ingested → chunk 2497d61d-b3dd-4db3-a07f-da9183871eec
+
+  [healthcare] Q: माझ्या मुलासाठी UDID अपंगत्व प्रमाणपत्र मिळवण्यासाठी कोणती क…
+    ✍️  Volunteer (Gaurav) added local input.
+    ✅  Expert (Dr. Anjali Mehta) approved + ingested → chunk c1be5a01-0536-48b5-948a-ffcf6336c362
+
+  [financial] Q: Thanks bhai, isse kaafi help mili. Aur agar aur questions aa…
+    ✍️  Volunteer (Gaurav) added local input.
+    ✅  Expert (Rakesh Iyer) approved + ingested → chunk 5426f729-7c56-4f4d-b4fc-5a3495dcec9f

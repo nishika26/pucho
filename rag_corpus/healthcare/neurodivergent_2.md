@@ -190,7 +190,7 @@ Ask for:
 It is helpful to bring:
 
 - Child’s immunisation card
-- Previous medical records
+- Previous healthcare records
 - Assessment reports (if any)
 - Referral notes (if available)
 

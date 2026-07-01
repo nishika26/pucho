@@ -1,8 +1,8 @@
 """Local-volunteer CRUD.
 
-Volunteers are dashboard users with `users.role='volunteer'`; this table
-holds their profile data (display name, preferred language, active flag).
-The 1:1 with `users` is enforced at the DB level via UNIQUE on `user_id`.
+Volunteers are dashboard users with `dashboard_users.role='local_volunteer'`;
+this table holds their profile data (display name, preferred language, active
+flag). The 1:1 with `dashboard_users` is enforced via UNIQUE on `user_id`.
 """
 
 from __future__ import annotations
@@ -20,13 +20,11 @@ from models.volunteer import LocalVolunteerCreate, LocalVolunteerModel
 async def create(
     *,
     user_id: UUID,
-    display_name: str,
-    preferred_language: str | None = None,
+    name: str,
 ) -> LocalVolunteerModel:
     payload = LocalVolunteerCreate(
         user_id=user_id,
-        display_name=display_name,
-        preferred_language=preferred_language,
+        name=name,
         active=True,
     )
     async with get_session() as session:

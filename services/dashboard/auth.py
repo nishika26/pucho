@@ -16,10 +16,10 @@ from typing import Literal
 
 import streamlit as st
 
-import crud.user as crud_user
-from models.enums import ReviewerRole
+import crud.dashboard_user as crud_user
+from models.enums import DashboardRole
 
-Role = Literal["volunteer", "expert", "admin"]
+Role = Literal["local_volunteer", "expert", "admin"]
 
 
 @dataclass(frozen=True)
@@ -37,7 +37,7 @@ def _set_session_user(user) -> None:
         user_id=str(user.id),
         email=user.email or "",
         role=user.role,
-        display_name=user.display_name,
+        display_name=user.name,
     )
 
 
@@ -71,8 +71,11 @@ async def authenticate(email: str, password: str) -> SessionUser | None:
     user = await crud_user.get_by_email(email.strip().lower())
     if user is None:
         return None
-    if user.role not in (ReviewerRole.VOLUNTEER, ReviewerRole.EXPERT, ReviewerRole.ADMIN):
-        # Phone-only users can't log in here.
+    if user.role not in (
+        DashboardRole.LOCAL_VOLUNTEER,
+        DashboardRole.EXPERT,
+        DashboardRole.ADMIN,
+    ):
         return None
     if not crud_user.verify_password(password, user.password_hash):
         return None
@@ -82,7 +85,7 @@ async def authenticate(email: str, password: str) -> SessionUser | None:
         user_id=str(user.id),
         email=user.email or "",
         role=user.role,
-        display_name=user.display_name,
+        display_name=user.name,
     )
 
 

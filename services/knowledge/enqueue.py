@@ -20,7 +20,7 @@ from langgraph.runtime import Runtime
 import crud.qa_review as crud_qa_review
 from models.memory import MemoryDomainLiteral
 from models.qa_review import QAReviewCreate
-from services.agents.router import RouterContext, State
+from services.agent.router import RouterContext, State
 
 
 async def create_pending_review(

@@ -16,8 +16,8 @@ from pydantic import ConfigDict
 from sqlalchemy import CheckConstraint, String, text
 from sqlmodel import Field, SQLModel
 
-from models.enums import QAReviewStatus, QAReviewStatusLiteral
-from models.memory import MemoryDomainLiteral
+from models.enums import QAReviewStatus, QAReviewStatusLiteral, pg_enum
+from models.memory import MemoryDomain, MemoryDomainLiteral
 
 
 def _sa_str_col() -> Any:
@@ -30,7 +30,8 @@ class QAReviewBase(SQLModel):
 
     model_config = ConfigDict(from_attributes=True)
 
-    domain: MemoryDomainLiteral = Field(sa_type=_sa_str_col(), index=True)
+    # Native `domain` enum (shared type); status stays VARCHAR + CHECK.
+    domain: MemoryDomain = Field(sa_type=pg_enum(MemoryDomain, "domain_enum"), index=True)
     user_question: str = Field(description="The bot's incoming WhatsApp message")
     bot_answer: str = Field(description="The domain agent's reply")
     source_message_id: UUID | None = Field(
@@ -53,7 +54,7 @@ class QAReviewBase(SQLModel):
     )
     status: QAReviewStatus = Field(
         default=QAReviewStatus.PENDING,
-        max_length=16,
+        sa_type=_sa_str_col(),
         index=True,
         description="pending | approved | rejected",
     )
@@ -68,10 +69,7 @@ class QAReviewModel(QAReviewBase, table=True):
 
     __tablename__ = "qa_reviews"
     __table_args__ = (
-        CheckConstraint(
-            "domain IN ('legal','medical','financial')",
-            name="qa_reviews_domain_check",
-        ),
+        # `domain` is a native enum; only `status` needs a CHECK.
         CheckConstraint(
             "status IN ('pending','approved','rejected')",
             name="qa_reviews_status_check",

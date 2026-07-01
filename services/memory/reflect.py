@@ -54,19 +54,25 @@ def _domain_block(domain: MemoryDomain) -> str:
 
 
 def _extract_messages(state: dict[str, Any]) -> tuple[str, str]:
-    """Pull the latest human + AI content from state, in that order.
+    """Return (user question, bot answer) for this turn.
 
-    Falls back to empty strings if either is missing (e.g. voice flow where
-    only one side has been recorded so far).
+    Prefer the reliable state keys: the user's question is in `input_question`
+    and the reply in `output_text`. We do NOT depend on `state["messages"]`,
+    because the domain node replaces that channel with only its AIMessage — so
+    the user's turn (where the facts actually come from) isn't there.
     """
+    human = state.get("input_question") or ""
+    ai = state.get("output_text") or ""
+    if human or ai:
+        return str(human), str(ai)
+
+    # Fallback: parse the message list if the keys are somehow empty.
     messages = state.get("messages", [])
     human = next(
-        (m.content for m in reversed(messages) if isinstance(m, HumanMessage)),
-        "",
+        (m.content for m in reversed(messages) if isinstance(m, HumanMessage)), ""
     )
     ai = next(
-        (m.content for m in reversed(messages) if isinstance(m, AIMessage)),
-        "",
+        (m.content for m in reversed(messages) if isinstance(m, AIMessage)), ""
     )
     return str(human or ""), str(ai or "")
 
@@ -100,9 +106,14 @@ async def extract_facts_for(
         # Nothing to reflect on (shouldn't happen in normal flow).
         return {}
 
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0).with_structured_output(
-        FactsToMemorize
-    )
+    from config.settings import settings
+
+    # method="function_calling" because FactsToMemorize has a `value: Any` field,
+    # which OpenAI's strict structured-output mode rejects (every property needs
+    # a type). Function-calling mode is lenient about arbitrary-JSON fields.
+    llm = ChatOpenAI(
+        model="gpt-4o-mini", temperature=0, api_key=settings.OPENAI_API_KEY
+    ).with_structured_output(FactsToMemorize, method="function_calling")
     proposed = await llm.ainvoke(
         [
             {"role": "system", "content": _SYSTEM_PROMPT_TEMPLATE.format(

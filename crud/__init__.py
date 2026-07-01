@@ -7,9 +7,10 @@ Per the senior-engineer doc:
 - Never contains business logic.
 
 Each submodule is per-table:
-    crud.user    — get/insert/update on `users`
-    crud.message — create/list on `messages`
-    crud.memory  — upsert/list/delete on `user_memories`
+    crud.whatsapp_user   — get/insert/update on `whatsapp_users`
+    crud.dashboard_user  — get/insert/update on `dashboard_users`
+    crud.message         — create/list on `messages`
+    crud.memory          — upsert/list/delete on `user_memories`
 
 Sessions are opened via `config.db.get_session()`.
 """

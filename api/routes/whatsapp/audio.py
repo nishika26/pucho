@@ -7,7 +7,7 @@ for a project already deploying to Vercel — no extra IAM, no bucket policy.
 
 from __future__ import annotations
 
-import os
+import logging
 import uuid
 
 import vercel_blob
@@ -22,7 +22,9 @@ async def upload_audio(audio_bytes: bytes, *, filename: str | None = None) -> st
         RuntimeError: if `BLOB_READ_WRITE_TOKEN` is not configured.
         vercel_blob.VercelBlobError: on upload failure (propagated).
     """
-    token = os.environ.get("BLOB_READ_WRITE_TOKEN")
+    from config.settings import settings
+
+    token = settings.BLOB_READ_WRITE_TOKEN
     if not token:
         raise RuntimeError(
             "BLOB_READ_WRITE_TOKEN is not set — Vercel Blob uploads require it. "
@@ -31,7 +33,9 @@ async def upload_audio(audio_bytes: bytes, *, filename: str | None = None) -> st
         )
 
     name = filename or f"pucho-tts/{uuid.uuid4().hex}.wav"
-    result = vercel_blob.put(name, audio_bytes, token=token, access="public")
+    # vercel_blob.put(path, data, options) — the token goes inside the options
+    # dict (not a kwarg); the store is public by default.
+    result = vercel_blob.put(name, audio_bytes, {"token": token})
     return result["url"]
 
 
@@ -40,15 +44,23 @@ async def synthesize_and_upload(
     *,
     language: str,
     prefix: str,
-) -> str:
+) -> str | None:
     """Run TTS on `text`, upload to Vercel Blob, return the public URL.
 
-    Domain agents call this when the user's modality is voice. The whole
-    "synthesize audio → upload → return URL" sequence lives here so each
-    domain agent doesn't have to duplicate it.
+    Domain agents call this when the user's modality is voice. Best-effort:
+    if TTS or the upload fails (missing Blob token, Sarvam error, etc.), we
+    log and return None so the caller replies with TEXT instead of 500-ing —
+    a voice user always gets *an* answer.
     """
-    audio_bytes: bytes = await text_to_speech.ainvoke(
-        {"text": text, "target_language_code": language}
-    )
-    filename = f"pucho-tts/{prefix}-{uuid.uuid4().hex}.wav"
-    return await upload_audio(audio_bytes, filename=filename)
+    try:
+        audio_bytes: bytes = await text_to_speech.ainvoke(
+            {"text": text, "target_language_code": language}
+        )
+        # .mp3 so Vercel Blob serves it as audio/mpeg (WhatsApp-playable).
+        filename = f"pucho-tts/{prefix}-{uuid.uuid4().hex}.mp3"
+        return await upload_audio(audio_bytes, filename=filename)
+    except Exception:
+        logging.getLogger(__name__).exception(
+            "TTS/upload failed; falling back to a text reply"
+        )
+        return None

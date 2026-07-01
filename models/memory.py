@@ -18,17 +18,20 @@ from typing import Any, Literal
 from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field
-from sqlalchemy import JSON, CheckConstraint, text
+from sqlalchemy import CheckConstraint, text
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlmodel import Field as SQLField, SQLModel
+
+from models.enums import pg_enum
 
 
 class MemoryDomain(StrEnum):
     LEGAL = "legal"
-    MEDICAL = "medical"
+    healthcare = "healthcare"
     FINANCIAL = "financial"
 
 
-MemoryDomainLiteral = Literal["legal", "medical", "financial"]
+MemoryDomainLiteral = Literal["legal", "healthcare", "financial"]
 
 
 class UserMemoryBase(SQLModel):
@@ -36,10 +39,13 @@ class UserMemoryBase(SQLModel):
 
     model_config = ConfigDict(from_attributes=True)
 
-    user_id: UUID = SQLField(foreign_key="users.id", index=True, ondelete="CASCADE")
-    domain: MemoryDomain = SQLField(index=True)
+    user_id: UUID = SQLField(
+        foreign_key="whatsapp_users.id", index=True, ondelete="CASCADE"
+    )
+    # Native Postgres enum (`domain` type), shared with qa_reviews/documents/experts.
+    domain: MemoryDomain = SQLField(sa_type=pg_enum(MemoryDomain, "domain_enum"), index=True)
     key: str = SQLField(max_length=128, description="Stable per (user, domain) — e.g. 'chronic_conditions'")
-    value: dict[str, Any] = SQLField(sa_type=JSON, description="JSONB — schema varies per key")
+    value: Any = SQLField(sa_type=JSONB, description="JSONB — any JSON: dict, list, or scalar")
     confidence: float = SQLField(default=1.0, ge=0.0, le=1.0)
     source_message_id: UUID | None = SQLField(
         default=None,
@@ -54,10 +60,7 @@ class UserMemoryModel(UserMemoryBase, table=True):
 
     __tablename__ = "user_memories"
     __table_args__ = (
-        CheckConstraint(
-            "domain IN ('legal','medical','financial')",
-            name="user_memories_domain_check",
-        ),
+        # `domain` is a native enum, so no CHECK needed for it.
         CheckConstraint(
             "confidence >= 0.0 AND confidence <= 1.0",
             name="user_memories_confidence_check",
@@ -91,7 +94,7 @@ class UserMemoryUpdate(SQLModel):
 
     model_config = ConfigDict(from_attributes=True)
 
-    value: dict[str, Any] | None = None
+    value: Any = None
     confidence: float | None = Field(default=None, ge=0.0, le=1.0)
     source_message_id: UUID | None = None
 

@@ -10,7 +10,6 @@ short-lived event loop because the dashboard's UI is sync.
 from __future__ import annotations
 
 import asyncio
-import os
 from contextlib import contextmanager
 from typing import Iterator
 
@@ -22,15 +21,25 @@ _engine: Engine | None = None
 
 
 def _dsn_sync() -> str:
-    """Build a `postgresql://` DSN (sync psycopg2 driver) for SQLAlchemy."""
-    server = os.environ["POSTGRES_SERVER"]
-    user = os.environ["POSTGRES_USER"]
-    password = os.environ.get("POSTGRES_PASSWORD", "")
-    port = int(os.environ.get("POSTGRES_PORT", "5432"))
-    db = os.environ.get("POSTGRES_DB", "postgres")
-    return (
-        f"postgresql://{user}:{password}@{server}:{port}/{db}"
-    )
+    """Sync `postgresql://` DSN for SQLAlchemy.
+
+    Uses the same source as the rest of the app: `config.settings.database_url`,
+    which resolves either `DATABASE_URL` or the discrete `POSTGRES_*` parts. The
+    dashboard engine is sync, so we strip any async driver suffix and fall back
+    to the default (psycopg2) driver.
+    """
+    from config.settings import settings
+
+    url = settings.database_url
+    if not url:
+        raise RuntimeError(
+            "No database configured. Set DATABASE_URL (or the POSTGRES_* vars) "
+            "in your .env before starting the dashboard."
+        )
+    for prefix in ("postgresql+asyncpg://", "postgresql+psycopg://"):
+        if url.startswith(prefix):
+            return "postgresql://" + url[len(prefix) :]
+    return url
 
 
 def get_engine() -> Engine:
