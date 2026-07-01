@@ -8,7 +8,7 @@ to their **literacy level, emotional state, context, and history** — so an
 illiterate street vendor sending a worried voice note and a college student
 typing a calm question get materially different answers to the same query.
 
-> 🎥 **Demo video:** _<add Google Drive link (Anyone-with-link)>_
+> 🎥 **Demo video:** https://docs.google.com/videos/d/1qBSEjKyc637JDd3Y7aTNZ6yC6qWks1d492jAzZczwxE/edit?usp=sharing
 
 ---
 
